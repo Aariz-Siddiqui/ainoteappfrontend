@@ -67,26 +67,30 @@ export default function CreateNote() {
           {loading ? "Creating..." : "Create Note"}
         </button>
 
-        {result && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-            <p className="font-semibold">Shareable URL:</p>
-            <p className="text-blue-600 break-words mt-1">
-              {result.shareableUrl}
-            </p>
+{result && (
+  <div className="mt-6 p-4 bg-gray-100 rounded-lg">
+    <p className="font-semibold">Shareable URL:</p>
+    <p className="text-blue-600 break-words mt-1">
+      {`${window.location.origin}/note/${result.id}`}
+    </p>
 
-            <button
-              onClick={copyToClipboard}
-              className="mt-2 text-sm text-blue-600 underline"
-            >
-              Copy Link
-            </button>
+    <button
+      onClick={() => {
+        const shareUrl = `${window.location.origin}/note/${result.id}`;
+        navigator.clipboard.writeText(shareUrl);
+        alert("Link copied!");
+      }}
+      className="mt-2 text-sm text-blue-600 underline"
+    >
+      Copy Link
+    </button>
 
-            <p className="mt-3">
-              <span className="font-semibold">Password:</span>{" "}
-              {result.password}
-            </p>
-          </div>
-        )}
+    <p className="mt-3">
+      <span className="font-semibold">Password:</span>{" "}
+      {result.password}
+    </p>
+  </div>
+)}
       </div>
     </div>
   );
