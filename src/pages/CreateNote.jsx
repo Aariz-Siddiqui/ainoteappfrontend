@@ -71,12 +71,12 @@ export default function CreateNote() {
   <div className="mt-6 p-4 bg-gray-100 rounded-lg">
     <p className="font-semibold">Shareable URL:</p>
     <p className="text-blue-600 break-words mt-1">
-      {`${window.location.origin}/note/${result.id}`}
+      {`${window.location.origin}/note/${result._id}`}
     </p>
 
     <button
       onClick={() => {
-        const shareUrl = `${window.location.origin}/note/${result.id}`;
+        const shareUrl = `${window.location.origin}/note/${result._id}`;
         navigator.clipboard.writeText(shareUrl);
         alert("Link copied!");
       }}
