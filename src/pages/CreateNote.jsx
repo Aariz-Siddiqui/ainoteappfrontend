@@ -20,6 +20,7 @@ export default function CreateNote() {
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (!response.ok) {
         alert(data.error || "Something went wrong");
