@@ -51,23 +51,24 @@ export default function ViewNote() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || "Failed to summarize");
+        setError(data.error || "Failed to summarize");
         return;
       }
 
       setSummary(data.summary);
     } catch (err) {
-      alert("Server error");
+      setError("Server error");
     } finally {
       setSummaryLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-xl">
-        <h1 className="text-2xl font-bold mb-4 text-center">
-          View Private Note
+    <div className="flex items-center justify-center min-h-screen px-4">
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 w-full max-w-xl">
+
+        <h1 className="text-3xl font-bold text-center mb-6">
+          🔐 View Private Note
         </h1>
 
         {!note && (
@@ -75,51 +76,55 @@ export default function ViewNote() {
             <input
               type="password"
               placeholder="Enter password"
-              className="w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-green-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-white/5 border border-white/20 p-3 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-slate-400"
             />
 
             <button
               onClick={unlockNote}
               disabled={loading}
-              className={`w-full py-2 rounded text-white transition ${
+              className={`w-full py-3 rounded-xl font-semibold transition ${
                 loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-500 hover:bg-green-600"
+                  ? "bg-slate-600 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
               }`}
             >
               {loading ? "Unlocking..." : "Unlock Note"}
             </button>
 
             {error && (
-              <p className="text-red-500 mt-3 text-center">{error}</p>
+              <p className="text-red-400 mt-4 text-center">{error}</p>
             )}
           </>
         )}
 
         {note && (
           <>
-            <div className="mt-4 p-4 bg-gray-100 rounded whitespace-pre-wrap">
+            <div className="p-4 bg-white/5 border border-white/20 rounded-xl whitespace-pre-wrap mb-4 text-slate-200">
               {note}
             </div>
 
             <button
               onClick={summarizeNote}
               disabled={summaryLoading}
-              className={`mt-4 w-full py-2 rounded text-white transition ${
+              className={`w-full py-3 rounded-xl font-semibold transition ${
                 summaryLoading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-purple-500 hover:bg-purple-600"
+                  ? "bg-slate-600 cursor-not-allowed"
+                  : "bg-purple-600 hover:bg-purple-700"
               }`}
             >
-              {summaryLoading ? "Generating Summary..." : "Summarize Note"}
+              {summaryLoading
+                ? "Generating Summary..."
+                : "Generate AI Summary"}
             </button>
 
             {summary && (
-              <div className="mt-4 p-4 bg-yellow-100 rounded whitespace-pre-wrap">
-                <strong>AI Summary:</strong>
-                <div className="mt-2">{summary}</div>
+              <div className="mt-4 p-4 bg-blue-500/10 border border-blue-400/20 rounded-xl animate-fade-in">
+                <strong className="block mb-2">AI Summary:</strong>
+                <div className="text-slate-300 whitespace-pre-wrap">
+                  {summary}
+                </div>
               </div>
             )}
           </>
