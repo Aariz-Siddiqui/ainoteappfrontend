@@ -73,7 +73,7 @@ export default function CreateNote() {
           disabled={loading || !text.trim()}
           className={`w-full py-3 rounded-xl font-semibold transition-all duration-200 ${
             loading || !text.trim()
-              ? "bg-slate-400 cursor-not-allowed text-white"
+              ? "bg-indigo-300 cursor-not-allowed text-white"
               : "bg-blue-600 hover:bg-blue-700 text-white active:scale-95"
           }`}
         >
