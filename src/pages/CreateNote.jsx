@@ -82,30 +82,33 @@ export default function CreateNote() {
           <p className="text-red-400 mt-4 text-center">{message}</p>
         )}
 
-        {result && (
-          <div className="mt-6 p-5 bg-green-500/10 border border-green-400/20 rounded-xl animate-fade-in">
-            <p className="font-semibold mb-2">Shareable URL:</p>
+{result && (
+  <div className="mt-6 p-6 bg-green-50 border border-green-200 rounded-xl">
+    <p className="font-semibold text-gray-800">Shareable URL:</p>
 
-            <div className="bg-white/5 p-3 rounded text-sm break-words mb-3">
-              {shareUrl}
-            </div>
+    <p className="text-sm text-gray-700 break-words mt-2">
+      {`${window.location.origin}/note/${result.id}`}
+    </p>
 
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(shareUrl);
-                setMessage("Link copied!");
-              }}
-              className="text-sm text-blue-400 hover:underline"
-            >
-              Copy Link
-            </button>
+    <button
+      onClick={() => {
+        const shareUrl = `${window.location.origin}/note/${result.id}`;
+        navigator.clipboard.writeText(shareUrl);
+        alert("Link copied!");
+      }}
+      className="mt-3 text-sm font-medium text-green-700 hover:text-green-900 underline"
+    >
+      Copy Link
+    </button>
 
-            <p className="mt-4">
-              <span className="font-semibold">Password:</span>{" "}
-              {result.password}
-            </p>
-          </div>
-        )}
+    <div className="mt-4 p-3 bg-white border rounded-lg">
+      <p className="text-sm text-gray-600">Password</p>
+      <p className="font-semibold text-gray-900 text-lg mt-1">
+        {result.password}
+      </p>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );
